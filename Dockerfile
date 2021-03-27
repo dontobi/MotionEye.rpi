@@ -30,9 +30,6 @@ RUN echo "deb http://snapshot.debian.org/archive/debian/$(date +%Y%m%d) sid main
     && apt-get purge --yes python-setuptools python-wheel && apt-get autoremove --yes && apt-get --yes clean \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*.bin /tmp/* /tmp/.[!.]*
 
-# Healthcheck
-HEALTHCHECK --interval=1m --timeout=10s CMD nc -z localhost 8765 || exit 1
-
 # Set Ports
 EXPOSE 8765
 
