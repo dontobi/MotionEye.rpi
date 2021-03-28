@@ -20,7 +20,7 @@ RUN echo "deb http://snapshot.debian.org/archive/debian/$(date +%Y%m%d) sid main
     && apt-get -t stable --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
     curl libmicrohttpd12 libpq5 lsb-release mosquitto-clients python-jinja2 python-pil python-pip python-pip-whl python-pycurl python-setuptools python-tornado python-tz python-wheel tzdata \
     && apt-get -t sid --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
-    ffmpeg libmysqlclient21 motion v4l-utils \
+    ffmpeg libmysqlclient21 motion samba samba-common-bin v4l-utils \
     && sed -i -e "s/^\(motion:[^:]*\):[0-9]*:[0-9]*:\(.*\)/\1:${UID}:${GID}:\2/" /etc/passwd \
     && sed -i -e "s/^\(motion:[^:]*\):[0-9]*:\(.*\)/\1:${GID}:\2/" /etc/group \
     && pip install "motioneye==${MOTIONEYE_VERSION}"  \
