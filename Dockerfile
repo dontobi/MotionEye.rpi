@@ -17,11 +17,13 @@ ENV TZ="Europe/Berlin" \
 # Building
 ARG MOTIONEYE_VERSION=0.42.1
 WORKDIR /tmp
-RUN apt-get update && apt-get upgrade -y \
+RUN echo "deb http://http.us.debian.org/debian sid main contrib non-free" >>/etc/apt/sources.list \
+    && apt-get update && apt-get upgrade -y \
     && apt-get --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
-    curl ffmpeg libmicrohttpd12 libmysqlclient21 libpq5 lsb-release mosquitto-clients motion \
-    python3-jinja2 python3-pil python3-pip python3-pycurl python3-setuptools python3-six \
-    python3-tornado python3-tz python3-wheel samba samba-common-bin tzdata v4l-utils \
+    curl libmicrohttpd12 libpq5 lsb-release mosquitto-clients python3-jinja2 python3-pil python3-pip \
+    python3-pycurl python3-setuptools python3-six python3-tornado python3-tz python3-wheel tzdata \
+    && apt-get -t sid --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
+    ffmpeg libmysqlclient21 motion samba samba-common-bin v4l-utils \
     && sed -i -e "s/^\(motion:[^:]*\):[0-9]*:[0-9]*:\(.*\)/\1:${UID}:${GID}:\2/" /etc/passwd \
     && sed -i -e "s/^\(motion:[^:]*\):[0-9]*:\(.*\)/\1:${GID}:\2/" /etc/group \
     && pip install "motioneye==${MOTIONEYE_VERSION}" \
