@@ -27,6 +27,11 @@ jobs:
           sed -e "s/\${VERSION}/$VERSION/" -e "s/\${DATI}/$DATI/" ./Dockerfile > ./Dockerfile.tmp
           mv -f ./Dockerfile.tmp ./Dockerfile
 
+      - name: Set up manifest tool
+        run: |
+          wget https://github.com/estesp/manifest-tool/releases/download/v1.0.3/manifest-tool-linux-amd64 -O manifest-tool
+          chmod +x manifest-tool
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0
 
@@ -47,6 +52,18 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/arm/v7
-          tags: |
-            dontobi/motioneye.rpi:${{ env.version }}-arm32v7,
-            dontobi/motioneye.rpi:latest
+          tags: dontobi/motioneye.rpi:${{ env.version }}-arm32v7
+
+      - name: Build Docker image (arm64v8)
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/arm64
+          tags: dontobi/motioneye.rpi:${{ env.version }}-arm64v8
+
+      - name: Create and push manifests
+        run: |
+          sed -e "s/\${VERSION}/${{ env.version }}/g" -e "s/\${DOCKERTAG}/latest/g" ./manifest.yml > manifest_latest.yaml
+          ./manifest-tool --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PASS }} push from-spec manifest_latest.yaml
