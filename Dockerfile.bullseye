@@ -1,4 +1,4 @@
-FROM balenalib/armv7hf-debian:bullseye-run
+FROM debian:bullseye-slim
 MAINTAINER dontobi <github@myhome.zone>
 
 # Set Volumes

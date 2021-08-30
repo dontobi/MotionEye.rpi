@@ -1,4 +1,4 @@
-FROM balenalib/armv7hf-debian:buster-run
+FROM debian:buster-slim
 MAINTAINER dontobi <github@myhome.zone>
 
 # Set Volumes
