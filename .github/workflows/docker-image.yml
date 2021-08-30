@@ -36,25 +36,13 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
 
-      - name: Build Docker image (buster-arm32v7)
+      - name: Build Docker image (arm32v7)
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
-          file: ./Dockerfile.buster
+          file: ./Dockerfile
           push: true
           platforms: linux/arm/v7
           tags: |
-            dontobi/motioneye.rpi:${{ env.version }}-buster,
-            dontobi/motioneye.rpi:latest-buster,
+            dontobi/motioneye.rpi:${{ env.version }}-arm32v7,
             dontobi/motioneye.rpi:latest
-
-      - name: Build Docker image (bullseye-arm32v7)
-        uses: docker/build-push-action@v2.7.0
-        with:
-          context: .
-          file: ./Dockerfile.bullseye
-          push: true
-          platforms: linux/arm/v7
-          tags: |
-            dontobi/iobroker.docker:${{ env.version }}-bullseye,
-            dontobi/iobroker.docker:latest-bullseye
