@@ -21,7 +21,11 @@ jobs:
         id: version
         run: |
           VERSION="$(cat .VERSION)"
+          DATI="$(date --rfc-3339=seconds | sed 's/ /T/')"
           echo "version=$VERSION" >> $GITHUB_ENV
+          echo "dati=$DATI" >> $GITHUB_ENV
+          sed -e "s/\${VERSION}/$VERSION/" -e "s/\${DATI}/$DATI/" ./Dockerfile > ./Dockerfile.tmp
+          mv -f ./Dockerfile.tmp ./Dockerfile
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0
