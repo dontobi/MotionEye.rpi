@@ -4,7 +4,8 @@ LABEL org.opencontainers.image.title="MotionEye Docker Image" \
       org.opencontainers.image.description="Docker image for MotionEye" \
       org.opencontainers.image.authors="github@myhome.zone" \
       org.opencontainers.image.url="https://github.com/dontobi/MotionEye.rpi" \
-      org.opencontainers.image.version="${VERSION}"
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.created="${DATI}"
 
 # Set Volumes
 VOLUME [ "/etc/motioneye", "/var/lib/motioneye" ]
