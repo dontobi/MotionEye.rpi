@@ -1,9 +1,14 @@
+# Set base image
 FROM debian:bullseye-slim
-MAINTAINER dontobi <github@myhome.zone>
+
+# Set container label
 LABEL org.opencontainers.image.title="MotionEye Docker Image" \
       org.opencontainers.image.description="Docker image for MotionEye" \
-      org.opencontainers.image.authors="github@myhome.zone" \
+      org.opencontainers.image.documentation="https://github.com/dontobi/MotionEye.rpi#readme" \
+      org.opencontainers.image.authors="Tobias S. <github@myhome.zone>" \
       org.opencontainers.image.url="https://github.com/dontobi/MotionEye.rpi" \
+      org.opencontainers.image.source="https://github.com/dontobi/MotionEye.rpi" \
+      org.opencontainers.image.base.name="docker.io/library/debian:bullseye-slim" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${DATI}"
 
