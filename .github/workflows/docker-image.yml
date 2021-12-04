@@ -49,7 +49,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
 
       - name: Set Build Tag (arm32v7)
-        id: version
+        id: tag_arm32v7
         run: |
           TAG="$VERSION-arm32v7"
           echo "tag=$TAG" >> $GITHUB_ENV
@@ -64,7 +64,7 @@ jobs:
           tags: dontobi/motioneye.rpi:${{ env.tag }}
 
       - name: Set Build Tag (arm64v8)
-        id: version
+        id: tag_arm64v8
         run: |
           echo "tag=$VERSION-arm64v8" >> $GITHUB_ENV
 
