@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.title="MotionEye Docker Image" \
       org.opencontainers.image.authors="Tobias S. <github@myhome.zone>" \
       org.opencontainers.image.url="https://github.com/dontobi/MotionEye.rpi" \
       org.opencontainers.image.source="https://github.com/dontobi/MotionEye.rpi" \
-      org.opencontainers.image.base.name="docker.io/library/debian:bullseye-slim" \
+      org.opencontainers.image.base.name="docker.io/library/debian:buster-slim" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${DATI}"
 
