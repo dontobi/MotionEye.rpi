@@ -54,9 +54,6 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/arm/v7,linux/arm64
-          tags: dontobi/motioneye.rpi:${{ env.version }}
-
-      - name: Create and push manifests
-        run: |
-          sed -e "s/\${VERSION}/${{ env.version }}/g" -e "s/\${DOCKERTAG}/latest/g" ./manifest.yml > manifest_latest.yaml
-          ./manifest-tool --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PASS }} push from-spec manifest_latest.yaml
+          tags: |
+            dontobi/motioneye.rpi:${{ env.version }}
+            dontobi/motioneye.rpi:latest
