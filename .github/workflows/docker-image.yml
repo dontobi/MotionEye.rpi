@@ -55,7 +55,7 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/arm/v7
-          tags: dontobi/motioneye.rpi:${{ env.version }}-arm32v7
+          tags: dontobi/motioneye.rpi:${{ env.version }}_arm32v7
 
       - name: Build Docker image (arm64v8)
         uses: docker/build-push-action@v2.7.0
@@ -64,7 +64,7 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/arm64
-          tags: dontobi/motioneye.rpi:${{ env.version }}-arm64v8
+          tags: dontobi/motioneye.rpi:${{ env.version }}_arm64v8
 
       - name: Create and push manifests
         run: |
