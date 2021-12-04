@@ -1,5 +1,5 @@
 # Set base image
-FROM debian:bullseye-slim
+FROM debian:buster-slim
 
 # Set container label
 LABEL org.opencontainers.image.title="MotionEye Docker Image" \
@@ -25,18 +25,15 @@ ARG MOTIONEYE_VERSION=0.42.1
 WORKDIR /tmp
 RUN echo "deb http://snapshot.debian.org/archive/debian/$(date +%Y%m%d) buster contrib non-free" >>/etc/apt/sources.list \
     && apt-get update && apt-get upgrade -y && apt-get --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
-    curl ffmpeg libmicrohttpd12 libpq5 lsb-release mosquitto-clients python-jinja2 python-pil python-pip \
-    python-pip-whl python-pycurl python-setuptools python-six python-tornado python-tz python-wheel tzdata \
-    && echo "deb http://snapshot.debian.org/archive/debian/$(date +%Y%m%d) sid main contrib non-free" >>/etc/apt/sources.list \
-    && apt-get update && apt-get -t sid --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
-    default-libmysqlclient-dev motion samba samba-common-bin v4l-utils \
+    curl default-libmysqlclient-dev ffmpeg libmicrohttpd12 libpq5 lsb-release mosquitto-clients motion python-jinja2 python-pil python-pip \
+    python-pip-whl python-pycurl python-setuptools python-six python-tornado python-tz python-wheel samba samba-common-bin tzdata v4l-utils \
     && sed -i -e "s/^\(motion:[^:]*\):[0-9]*:[0-9]*:\(.*\)/\1:${UID}:${GID}:\2/" /etc/passwd \
     && sed -i -e "s/^\(motion:[^:]*\):[0-9]*:\(.*\)/\1:${GID}:\2/" /etc/group \
     && pip install "motioneye==${MOTIONEYE_VERSION}" \
     && mkdir -p /etc/motioneye && mkdir -p /var/lib/motioneye \
     && cp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf \
     && cp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service \
-    && apt-get purge --yes python-pip python-setuptools python-wheel \
+    && apt-get purge --yes python-setuptools python-wheel \
     && apt-get autoremove --yes && apt-get --yes clean \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*.bin /tmp/* /tmp/.[!.]*
 
