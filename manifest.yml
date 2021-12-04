@@ -1,13 +1,13 @@
 image: dontobi/motioneye.rpi:${DOCKERTAG}
 manifests:
   -
-    image: dontobi/motioneye.rpi:${VERSION}-arm32v7
+    image: dontobi/motioneye.rpi:${VERSION}
     platform:
       architecture: arm
       variant: v7
       os: linux
   -
-    image: dontobi/motioneye.rpi:${VERSION}-arm64v8
+    image: dontobi/motioneye.rpi:${VERSION}
     platform:
       architecture: arm64
       variant: v8
