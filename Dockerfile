@@ -23,7 +23,8 @@ ENV TZ="Europe/Berlin" \
 # Building
 ARG MOTIONEYE_VERSION=0.42.1
 WORKDIR /tmp
-RUN apt-get update && apt-get upgrade -y && apt-get --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
+RUN echo "deb http://snapshot.debian.org/archive/debian/$(date +%Y%m%d) buster contrib non-free" >>/etc/apt/sources.list \
+    && apt-get update && apt-get upgrade -y && apt-get --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
     curl ffmpeg libmicrohttpd12 libpq5 lsb-release mosquitto-clients python-jinja2 python-pil python-pip \
     python-pip-whl python-pycurl python-setuptools python-six python-tornado python-tz python-wheel tzdata \
     && echo "deb http://snapshot.debian.org/archive/debian/$(date +%Y%m%d) sid main contrib non-free" >>/etc/apt/sources.list \

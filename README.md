@@ -7,7 +7,7 @@ motionEye is a web-based frontend for `motion <https://motion-project.github.io>
 ## Running from command line
 For taking a first look at the docker container it would be enough to simply run the following basic docker run command:
 ```
-docker run -d --name motioneye\
+docker run -d --name motioneye \
     -p 8765:8765 \
     -e TZ="Europe/Berlin" \
     -v [motioneye-config]:/etc/motioneye \
