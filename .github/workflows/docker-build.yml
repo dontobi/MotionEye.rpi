@@ -1,14 +1,12 @@
-# Github action to build Docker image from main branch (tag: latest)
+# Github action to build Docker image from main branch
 
-name: Build Docker Image (main)
+name: Build Container (Stable)
 
 on:
-  workflow_dispatch:
   release:
     types:
       - published
-  schedule:
-    - cron:  '0 0 * * FRI'
+  workflow_dispatch:
 
 jobs:
   bulid:
@@ -23,7 +21,7 @@ jobs:
       - name: Get and write version
         id: version
         run: |
-          VERSION="$(cat .VERSION)"
+          VERSION="$(cat .github/parameters/.VERSION)"
           DATI="$(date --rfc-3339=seconds | sed 's/ /T/')"
           echo "version=$VERSION" >> $GITHUB_ENV
           echo "dati=$DATI" >> $GITHUB_ENV

@@ -1,0 +1,25 @@
+name: Check Base Image
+
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-and-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Base Image Checker
+        id: checkbaseimage
+        uses: lucacome/docker-image-update-checker@v1.1.0
+        with:
+          base-image: "library/debian:buster-slim"
+          image: "dontobi/motioneye.rpi:latest"
+
+      - if: steps.checkbaseimage.outputs.needs-updating == 'true'
+        name: Trigger build
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: Build Container (Stable)
+          repo: dontobi/motioneye.rpi
+          token: ${{ secrets.ACTIONS_PAT }}
