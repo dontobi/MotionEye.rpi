@@ -16,8 +16,8 @@ jobs:
           base-image: "library/debian:buster-slim"
           image: "dontobi/motioneye.rpi:latest"
 
-      - if: steps.checkbaseimage.outputs.needs-updating == 'true'
-        name: Trigger build
+      - name: Trigger build
+        if: steps.checkbaseimage.outputs.needs-updating == 'true'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Build Container (Stable)
