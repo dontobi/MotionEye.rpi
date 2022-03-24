@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Docker Base Image Checker
-        id: checkbaseimage
-        uses: lucacome/docker-image-update-checker@v1.1.0
+        id: check
+        uses: mkumatag/container-image-updater-action@v1.0.5
         with:
-          base-image: "library/debian:buster-slim"
-          image: "dontobi/motioneye.rpi:latest"
+          base-image: 'library/debian:buster-slim'
+          image: 'dontobi/motioneye.rpi:latest'
+
+      - name: Image update
+        run: echo "Image update required ${{ steps.check.outputs.needs-update }}"
 
       - name: Trigger build
-        if: steps.checkbaseimage.outputs.needs-updating == 'true'
+        if: steps.check.outputs.needs-update == 'true'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Build Container (Stable)
