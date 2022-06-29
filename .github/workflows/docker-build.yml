@@ -30,7 +30,9 @@ jobs:
 
       - name: Set up manifest tool
         run: |
-          wget https://github.com/estesp/manifest-tool/releases/download/v1.0.3/manifest-tool-linux-amd64 -O manifest-tool
+          wget https://github.com/estesp/manifest-tool/releases/download/v2.0.3/binaries-manifest-tool-2.0.3.tar.gz -O binaries-manifest-tool.tar.gz
+          tar xzvf binaries-manifest-tool.tar.gz manifest-tool-linux-amd64
+          mv manifest-tool-linux-amd64 manifest-tool
           chmod +x manifest-tool
 
       - name: Set up QEMU
