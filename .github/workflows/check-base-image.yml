@@ -2,7 +2,7 @@ name: Check Base Image
 
 on:
   schedule:
-    - cron:  '0 0 * * *'
+    - cron:  '0 0 * * FRI'
   workflow_dispatch:
 
 jobs:
