@@ -1,3 +1,9 @@
+[![Source](https://img.shields.io/badge/source-github-blue)](https://github.com/dontobi/MotionEye.rpi)
+[![Github Issues](https://img.shields.io/github/issues/dontobi/MotionEye.rpi)](https://github.com/dontobi/MotionEye.rpi/issues)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/dontobi/motioneye.rpi/latest)](https://hub.docker.com/repository/docker/dontobi/motioneye.rpi)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dontobi/motioneye.rpi)](https://hub.docker.com/repository/docker/dontobi/motioneye.rpi)
+[![License](https://img.shields.io/github/license/dontobi/motioneye.rpi)](https://github.com/dontobi/motioneye.rpi/blob/main/LICENSE.md)
+
 # motioneye.rpi
 MotionEye Docker Container for Raspberry Pi
 
@@ -23,7 +29,7 @@ docker run -d --name motioneye \
 ## License
 MIT License
 
-Copyright (c) 2021-2023 [Tobias 'dontobi' Schug.]
+Copyright (c) 2021-2023 [Tobias 'dontobi' Schug]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
