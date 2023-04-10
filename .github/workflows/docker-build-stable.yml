@@ -21,18 +21,11 @@ jobs:
       - name: Get and write version
         id: version
         run: |
-          VERSION="$(cat .github/parameters/.VERSION)"
+          VERSION="$(cat .github/parameters/.stable-version)"
           DATI="$(date --rfc-3339=seconds | sed 's/ /T/')"
           echo "version=$VERSION" >> $GITHUB_ENV
           echo "dati=$DATI" >> $GITHUB_ENV
           sed -e "s/\${VERSION}/$VERSION/" -e "s/\${DATI}/$DATI/" ./Dockerfile.stable > ./Dockerfile
-
-      - name: Set up manifest tool
-        run: |
-          wget https://github.com/estesp/manifest-tool/releases/download/v2.0.3/binaries-manifest-tool-2.0.3.tar.gz -O binaries-manifest-tool.tar.gz
-          tar xzvf binaries-manifest-tool.tar.gz manifest-tool-linux-amd64
-          mv manifest-tool-linux-amd64 manifest-tool
-          chmod +x manifest-tool
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
