@@ -1,5 +1,5 @@
 # Set base image
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 # Set container label
 LABEL org.opencontainers.image.title="MotionEye Docker Image" \
@@ -16,19 +16,17 @@ LABEL org.opencontainers.image.title="MotionEye Docker Image" \
 ARG RUN_UID=0
 ARG RUN_GID=0
 
-# Set Volumes
-VOLUME [ "/etc/motioneye", "/var/lib/motioneye" ]
-
 # Set Variables
 ENV TZ="Europe/Berlin"
 
 # Building
 WORKDIR /tmp
-RUN case "$(dpkg --print-architecture)" in \
-      'armhf') PACKAGES='python3-distutils'; printf '%b' '[global]\nextra-index-url=https://www.piwheels.org/simple/\n' > /etc/pip.conf;; \
-      *) PACKAGES='gcc libcurl4-openssl-dev libssl-dev python3-dev';; \
-    esac \
-    && apt-get update && apt-get upgrade -y && apt-get --yes --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
+RUN printf '%b' '[global]\nbreak-system-packages=true\n' > /etc/pip.conf && \
+    case "$(dpkg --print-architecture)" in \
+      'armhf') PACKAGES='python3-dev gcc libjpeg62-turbo-dev'; printf '%b' 'extra-index-url=https://www.piwheels.org/simple/\n' >> /etc/pip.conf;; \
+      *) PACKAGES='python3-dev gcc libcurl4-openssl-dev libssl-dev';; \
+    esac && \
+    && apt-get -q update && DEBIAN_FRONTEND="noninteractive" apt-get -qq --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
       ca-certificates curl fdisk ffmpeg git python3 samba samba-common-bin tzdata v4l-utils $PACKAGES \
     && git clone -b dev https://github.com/motioneye-project/motioneye \
     && cp /tmp/motioneye/docker/entrypoint.sh /entrypoint.sh \
@@ -37,18 +35,18 @@ RUN case "$(dpkg --print-architecture)" in \
     && python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel \
     && python3 -m pip install --no-cache-dir /tmp/motioneye \
     && motioneye_init --skip-systemd --skip-apt-update \
-    # Change uid/gid of user/group motion to match our desired IDs. This will
-    # make it easier to use execute motion as our desired user later.
     && sed -i "s/^\(motion:[^:]*\):[0-9]*:[0-9]*:\(.*\)/\1:${RUN_UID}:${RUN_GID}:\2/" /etc/passwd \
     && sed -i "s/^\(motion:[^:]*\):[0-9]*:\(.*\)/\1:${RUN_GID}:\2/" /etc/group \
     && mv /etc/motioneye/motioneye.conf /etc/motioneye.conf.sample \
     && mkdir /var/log/motioneye /var/lib/motioneye \
     && chown motion:motion /var/log/motioneye /var/lib/motioneye \
-    # Cleanup
     && python3 -m pip uninstall -y pip setuptools wheel \
-    && apt-get autopurge --yes $PACKAGES \
+    && DEBIAN_FRONTEND="noninteractive" apt-get -qq autopurge $PACKAGES \
     && apt-get autoremove --yes && apt-get --yes clean \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*.bin /tmp/* /tmp/.[!.]* get-pip.py /root/.cache
+
+# Set Volumes
+VOLUME [ "/etc/motioneye", "/var/lib/motioneye" ]
 
 # Set Ports
 EXPOSE 8765
