@@ -25,7 +25,7 @@ RUN printf '%b' '[global]\nbreak-system-packages=true\n' > /etc/pip.conf && \
     case "$(dpkg --print-architecture)" in \
       'armhf') PACKAGES='python3-dev gcc libjpeg62-turbo-dev'; printf '%b' 'extra-index-url=https://www.piwheels.org/simple/\n' >> /etc/pip.conf;; \
       *) PACKAGES='python3-dev gcc libcurl4-openssl-dev libssl-dev';; \
-    esac && \
+    esac \
     && apt-get -q update && DEBIAN_FRONTEND="noninteractive" apt-get -qq --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
       ca-certificates curl fdisk ffmpeg git python3 samba samba-common-bin tzdata v4l-utils $PACKAGES \
     && git clone -b dev https://github.com/motioneye-project/motioneye \
