@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Docker Base Image Checker
         id: check
-        uses: mkumatag/container-image-updater-action@v1.0.5
+        uses: mkumatag/container-image-updater-action@v1.0.6
         with:
           base-image: 'library/debian:buster-slim'
           image: 'dontobi/motioneye.rpi:latest'
