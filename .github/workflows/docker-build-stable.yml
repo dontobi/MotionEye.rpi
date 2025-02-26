@@ -28,7 +28,7 @@ jobs:
           sed -e "s/\${VERSION}/$VERSION/" -e "s/\${DATI}/$DATI/" ./Dockerfile.stable > ./Dockerfile
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.4.0
+        uses: docker/setup-qemu-action@v3.5.0
 
       - name: Set up Docker Buildx
         id: buildx
