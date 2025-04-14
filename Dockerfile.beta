@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.title="MotionEye Docker Image" \
       org.opencontainers.image.authors="Tobias Schug <github@myhome.zone>" \
       org.opencontainers.image.url="https://github.com/dontobi/MotionEye.rpi" \
       org.opencontainers.image.source="https://github.com/dontobi/MotionEye.rpi" \
-      org.opencontainers.image.base.name="docker.io/library/debian:bullseye-slim" \
+      org.opencontainers.image.base.name="docker.io/library/debian:bookworm-slim" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${DATI}"
 
@@ -28,7 +28,7 @@ RUN printf '%b' '[global]\nbreak-system-packages=true\n' > /etc/pip.conf && \
     esac \
     && apt-get -q update && DEBIAN_FRONTEND="noninteractive" apt-get -qq --option Dpkg::Options::="--force-confnew" --no-install-recommends install \
       ca-certificates curl fdisk ffmpeg git python3 samba samba-common-bin tzdata v4l-utils $PACKAGES \
-    && git clone -b dev https://github.com/motioneye-project/motioneye \
+    && git clone -b beta https://github.com/motioneye-project/motioneye \
     && cp /tmp/motioneye/docker/entrypoint.sh /entrypoint.sh \
     && curl -sSfO 'https://bootstrap.pypa.io/get-pip.py' \
     && python3 get-pip.py \
