@@ -13,7 +13,7 @@ jobs:
         id: check
         uses: mkumatag/container-image-updater-action@v1.0.6
         with:
-          base-image: 'library/debian:buster-slim'
+          base-image: 'library/debian:bookworm-slim'
           image: 'dontobi/motioneye.rpi:latest'
 
       - name: Image update

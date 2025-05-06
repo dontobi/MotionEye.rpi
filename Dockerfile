@@ -1,3 +1,7 @@
+# Set Initial Arguments
+ARG VERSION
+ARG DATI
+
 # Set base image
 FROM debian:bookworm-slim
 

@@ -2,3 +2,19 @@
 Dockerfile
 *~
 README.md
+
+# Docker specific
+.dockerignore
+.gitignore
+
+# Log files
+*.log
+
+# Python cache files (if applicable)
+__pycache__/
+*.pyc
+*.pyo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
