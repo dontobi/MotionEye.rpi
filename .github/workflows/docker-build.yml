@@ -95,8 +95,8 @@ jobs:
           fi
           
           echo "Container $CONTAINER_NAME is running. Checking logs for startup message..."
-          if ! docker logs $CONTAINER_NAME 2>&1 | grep -q "Starting..."; then
-            echo "Error: Startup message 'Starting...' not found in logs for $CONTAINER_NAME."
+          if ! docker logs $CONTAINER_NAME 2>&1 | grep -q "server started"; then
+            echo "Error: Startup message 'server started' not found in logs for $CONTAINER_NAME."
             echo "--- Container Logs ---"
             docker logs $CONTAINER_NAME
             docker stop $CONTAINER_NAME
