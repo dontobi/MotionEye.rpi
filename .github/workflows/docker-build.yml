@@ -49,17 +49,6 @@ jobs:
           username: dontobi
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v6.16.0
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          platforms: linux/arm/v7,linux/arm64
-          tags: |
-            dontobi/motioneye.rpi:${{ env.version }},
-            dontobi/motioneye.rpi:latest
-
       - name: Build and Load Docker image for testing
         id: build_and_load
         uses: docker/build-push-action@v6.16.0
