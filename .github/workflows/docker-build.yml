@@ -51,7 +51,7 @@ jobs:
 
       - name: Build and Load Docker image for testing
         id: build_and_load
-        uses: docker/build-push-action@v6.16.0
+        uses: docker/build-push-action@v6.17.0
         with:
           context: .
           file: ./Dockerfile
@@ -110,7 +110,7 @@ jobs:
 
       - name: Build and Push Multi-Platform Docker image
         if: success()
-        uses: docker/build-push-action@v6.16.0
+        uses: docker/build-push-action@v6.17.0
         with:
           context: .
           file: ./Dockerfile
