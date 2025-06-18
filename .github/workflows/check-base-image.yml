@@ -21,7 +21,7 @@ jobs:
 
       - name: Trigger build
         if: steps.check.outputs.needs-update == 'true'
-        uses: benc-uk/workflow-dispatch@v1.2
+        uses: benc-uk/workflow-dispatch@v1.2.4
         with:
           workflow: Build Container
           repo: dontobi/motioneye.rpi

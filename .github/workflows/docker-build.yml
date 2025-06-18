@@ -16,7 +16,7 @@ jobs:
       packages: write
     steps:
       - name: Checkout (main)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           repository: 'dontobi/motioneye.rpi'
           ref: 'main'
