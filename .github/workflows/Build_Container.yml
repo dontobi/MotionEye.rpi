@@ -1,5 +1,3 @@
-# Github action to build Docker image from main branch
-
 name: Build Container
 
 on:

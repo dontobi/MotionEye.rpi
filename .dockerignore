@@ -1,20 +1,31 @@
-.git
+# Git-Verzeichnis und -Dateien
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD-Workflows
+.github/
+
+# Docker-spezifische Dateien
 Dockerfile
-*~
+.dockerignore
+
+# Dokumentation
 README.md
 
-# Docker specific
-.dockerignore
-.gitignore
-
-# Log files
-*.log
-
-# Python cache files (if applicable)
-__pycache__/
-*.pyc
-*.pyo
+# IDE/Editor-spezifische Konfigurationen
+.vscode/
+.idea/
+*.swp
+*~
 
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Log-Dateien
+*.log

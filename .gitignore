@@ -1,0 +1,18 @@
+# IDE/Editor-spezifische Konfigurationen
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS-spezifische Dateien
+.DS_Store
+Thumbs.db
+
+# Lokale Build-Artefakte oder Logs
+*.log
+build/
+dist/
+
+# Python Cache
+__pycache__/
+*.py[cod]
