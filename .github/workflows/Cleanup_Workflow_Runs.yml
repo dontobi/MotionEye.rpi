@@ -9,86 +9,12 @@ jobs:
   delete_old_runs:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       actions: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-
-      - name: Setup Python
-        uses: actions/setup-python@v5.6.0
-        with:
-          python-version: '3.11'
-
-      - name: Install required library
-        run: pip install requests
-
       - name: Delete old workflow runs
-        id: cleanup
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
-          REPOSITORY: ${{ github.repository }}
-          DAYS_OLD: 30
-        run: |
-          import os
-          import requests
-          from datetime import datetime, timedelta, timezone
-
-          token = os.environ.get("GITHUB_TOKEN")
-          repo_name = os.environ.get("REPOSITORY")
-          days_old = int(os.environ.get("DAYS_OLD", 30))
-
-          if not token:
-              print("Error: The GITHUB_TOKEN secret was not found.")
-              exit(1)
-
-          api_url = f"https://api.github.com/repos/{repo_name}/actions/runs"
-          time_threshold = datetime.now(timezone.utc) - timedelta(days=days_old)
-
-          headers = {
-              "Authorization": f"Bearer {token}",
-              "Accept": "application/vnd.github.v3+json",
-          }
-
-          print(f"Searching for workflow runs older than {days_old} days...")
-
-          page = 1
-          while True:
-              params = {"per_page": 100, "page": page}
-              response = requests.get(api_url, headers=headers, params=params)
-
-              if response.status_code != 200:
-                  print(f"Error fetching workflow runs: {response.text}")
-                  exit(1)
-
-              data = response.json()
-              runs = data.get("workflow_runs", [])
-
-              if not runs:
-                  break
-
-              runs_to_delete = []
-              for run in runs:
-                  run_created_at = datetime.fromisoformat(run["created_at"].replace('Z', '+00:00'))
-                  if run_created_at < time_threshold:
-                      runs_to_delete.append(run)
-
-              if runs_to_delete:
-                  print(f"Found runs to delete on page {page}: {len(runs_to_delete)}")
-                  
-                  for run in runs_to_delete:
-                      run_id = run["id"]
-                      delete_url = f"{api_url}/{run_id}"
-                      delete_response = requests.delete(delete_url, headers=headers)
-                      if delete_response.status_code == 204:
-                          print(f"Successfully deleted: Run ID {run_id} ({run['created_at']})")
-                      else:
-                          print(f"Error deleting Run ID {run_id}: {delete_response.text}")
-
-              if "next" not in response.links:
-                  break
-              
-              page += 1
-
-          print("Done. The cleanup process is complete.")
+        uses: Mattraks/delete-workflow-runs@v2.0.6
+        with:
+          token: ${{ secrets.ACTIONS_PAT }}
+          repository: ${{ github.repository }}
+          retain_days: 30
