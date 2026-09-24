@@ -1,0 +1,19 @@
+name: AutoMerge
+
+on:
+  pull_request:
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  automerge:
+    if: github.triggering_actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge Dependabot Pull Requests
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_PAT }}
+          PR_URL: ${{ github.event.pull_request.html_url }}

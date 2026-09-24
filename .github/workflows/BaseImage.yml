@@ -1,9 +1,11 @@
-name: Check Base Image
+name: Base Image
 
 on:
   schedule:
-    - cron:  '0 0 * * FRI'
+    - cron: "0 0 * * FRI"
   workflow_dispatch:
+
+permissions: {}
 
 jobs:
   check-and-trigger:
@@ -13,12 +15,10 @@ jobs:
         id: check
         uses: mkumatag/container-image-updater-action@v1.0.6
         with:
-          base-image: 'library/debian:bookworm-slim'
-          image: 'dontobi/motioneye.rpi:latest'
-
+          base-image: "library/debian:bookworm-slim"
+          image: "dontobi/motioneye.rpi:latest"
       - name: Image update
         run: echo "Image update required ${{ steps.check.outputs.needs-update }}"
-
       - name: Trigger build
         if: steps.check.outputs.needs-update == 'true'
         uses: benc-uk/workflow-dispatch@v1.3.3
