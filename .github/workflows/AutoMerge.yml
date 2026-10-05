@@ -15,5 +15,5 @@ jobs:
       - name: Merge Dependabot Pull Requests
         run: gh pr merge --auto --merge "$PR_URL"
         env:
-          GH_TOKEN: ${{ secrets.ACTIONS_PAT }}
+          GH_TOKEN: ${{ github.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}
